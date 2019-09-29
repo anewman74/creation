@@ -1,7 +1,7 @@
 # creation
 This is a website - Creativity Inspire.  It allows logged in users to store their poems and short stories.   They can choose whether their creations will be private or open for public viewing.
 
-It uses Spring, Java, Postgres, Angular JS, Bootstrap and Fontawesome.  The website is modified for mobile phones.
+It uses Spring, Java, Postgres, Angular JS, Bootstrap and Font Awesome.  The website is modified for mobile phones.
 
 Below are some screenshots:
 
