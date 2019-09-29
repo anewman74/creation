@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    text-align: center;
+    width:100%;
+    overflow-y: hidden;
+}
+
+/* PC website */
+.header-container {
+    background-color: aliceblue;
+    border-bottom: 2px solid #ccc;
+    height:80px;
+    left:0;
+    padding: 15px 0px 25px;
+    position: fixed;
+    width:100%;
+    top:0;
+    z-index: 1000;
+}
+
+.heading {
+    color: blue;
+    display: block;
+    font-size: 3.5em;
+}
+
+.login-signup {
+    display: none;
+    float: right;
+    margin: -27px 8px 0px;
+    width: 24%;
+}
+
+.login-signup .btn {
+    margin-right: 5px;
+}
+
+.username-textfield {
+    text-transform: capitalize;
+}
+
+.about ul {
+    min-width: 100px;
+    width: 110px;
+}
+
+.about ul li {
+    font-size: .9em;
+    width: 110px;
+}
+
+.about ul li a {
+    padding: 5px 0px;
+}
+
+.login-signup .forgot-password {
+     color: blue;
+     display: block;
+     float: right;
+     font-size: .8em;
+     margin-top: 5px;
+     width: 151px;
+ }
+
+.welcome-container {
+    color: blue;
+    display: none;
+    float: right;
+    font-size: 1.2em;
+    margin: -27px 5px 0px;
+}
+
+.welcome-container p {
+    margin: 12px 20px 0px 0px;
+}
+
+.welcome-container .settings {
+    float: right;
+    margin-right: 35px;
+}
+
+.settings ul {
+    min-width: 118px;
+    width: 118px;
+}
+
+.settings ul li {
+    font-size: .9em;
+    width: 118px;
+}
+
+.settings ul li a {
+    padding: 5px 8px;
+}
+
+.btn {
+    margin-top: 5px;
+}
+
+.creations-nav-bar {
+    display: block;
+    padding-top: 35px;
+    width: 100%;
+}
+
+.creations-nav-bar .creation-search-term {
+    margin-bottom: -6px;
+}
+
+.creation-container {
+    position: absolute;
+    left: 0px;
+    top: 83px;
+    width: 100%;
+    overflow-y: auto;
+    height: 80%;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.creation-container .creation-details {
+    float: left;
+    margin: 0px 2%;
+    width: 29%;
+}
+
+.creation-container .creation-details .title {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.creation-container .description {
+    font-size: 0.9em;
+    height: 200px;
+    margin:0;
+    overflow: hidden;
+    padding: 5px 2%;
+    width: 100%;
+}
+
+.creation-container .read-more-link {
+    float:  left;
+    margin: 5px 0px 15px 10px;
+    text-align: center;
+}
+
+
+.spinner {
+display: inline-block;
+opacity: 0;
+width: 0;
+
+-webkit-transition: opacity 0.25s, width 0.25s;
+-moz-transition: opacity 0.25s, width 0.25s;
+-o-transition: opacity 0.25s, width 0.25s;
+transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+cursor:progress;
+}
+
+.has-spinner.active .spinner {
+opacity: 1;
+width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+
+.has-spinner.btn-mini.active .spinner {
+width: 10px;
+}
+
+.has-spinner.btn-small.active .spinner {
+width: 13px;
+}
+
+.has-spinner.btn.active .spinner {
+width: 16px;
+}
+
+.has-spinner.btn-large.active .spinner {
+width: 19px;
+}

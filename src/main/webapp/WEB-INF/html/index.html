@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" ng-app="creations">
+<head>
+    <meta charset="utf-8">
+    <title>Creativity Inspire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="resources/css/app.css"/>
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="resources/font-awesome/3.0.2/css/font-awesome.css">
+
+    <script src='resources/js/lib//jquery/1.10.1/jquery.min.js'></script>
+    <script src="resources/js/lib/angular/angular.js"></script>
+    <script src='resources/js/lib/jquery-elastic/jquery.elastic.source.js'></script>
+
+    <style>
+        /* Mobile website */
+        .mobile-header-container {
+            background-color: aliceblue;
+            border-bottom: 2px solid #ccc;
+            height:80px;
+            left:0;
+            padding: 2px 0;
+            position: fixed;
+            width:100%;
+            top:0;
+            z-index: 1000;
+        }
+
+        .mobile-heading {
+            color: blue;
+            float: left;
+            font-size: 1.5em;
+            text-align: center;
+            padding-top: 10px;
+            width: 40%;
+        }
+
+        .mobile-login-signup {
+            width: 50%;
+        }
+
+        .mobile-welcome-container {
+            color: blue;
+            display: none;
+            float: right;
+            font-size: 1.2em;
+            margin: 10px 5px 0px;
+            width: 100%;
+        }
+
+        .mobile-welcome-container p {
+            float: left;
+            margin: 12px 20px 0px 20px;
+        }
+
+        .mobile-welcome-container .settings {
+            float: right;
+            margin-right: 20px;
+        }
+
+        .mobile-welcome-container .settings ul {
+            min-width: 100px;
+            width: 100px;
+        }
+
+        .mobile-welcome-container .settings ul li {
+            font-size: .7em;
+            width: 100px;
+        }
+
+        .mobile-welcome-container .settings ul li a {
+            padding: 5px 0px;
+        }
+
+        .username-textfield {
+            text-transform: capitalize;
+        }
+
+        .mobile-creation-controller {
+            position: absolute;
+            left: 0px;
+            top: 83px;
+            width: 100%;
+        }
+
+        .mobile-creation-controller .creation-details {
+            float: left;
+            margin: 0px 7% 0 5%;
+            width: 88%;
+        }
+
+        .mobile-creation-controller .creation-details .title {
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-creation-controller .description {
+            font-size: 0.9em;
+            height: 200px;
+            margin:0;
+            overflow: hidden;
+            padding: 5px 2%;
+            width: 100%;
+        }
+
+        .mobile-creation-controller .read-more-link {
+            float:  left;
+            margin: 5px 0px 15px 10px;
+            text-align: center;
+        }
+
+        .modal-dialog-large {
+            left: 10%;
+            margin: 0 10%;
+            position: fixed;
+            top: 10%;
+            width: 60%;
+        }
+
+        .modal-dialog-large textarea {
+            height: 340px;
+            margin: 10px;
+            width: 80%;
+        }
+
+        .modal-dialog-large#contactUsModal .contact-us {
+            height: 250px;
+        }
+
+        .mobile-modal-dialog-large#contactUsModal .contact-us {
+            height: 100px;
+        }
+
+        .mobile-modal-dialog-large {
+            left: 1%;
+            margin: 0 2% 0 1%;
+            position: fixed;
+            top: 0%;
+            width: 96%;
+        }
+
+        .mobile-modal-dialog-large .modal-header {
+            padding: 4px 2%;
+        }
+
+        .mobile-modal-dialog-large .modal-header h4 {
+            color: green;
+            margin: 4px 0;
+        }
+
+        .mobile-modal-dialog-large .modal-body {
+            padding: 10px 0%;
+        }
+
+        .mobile-modal-dialog-large .modal-body .form-control {
+            margin: 3px 0%;
+            width: 90%;
+        }
+
+        .mobile-modal-dialog-large textarea {
+            height: 240px;
+            width: 100%;
+        }
+
+        .mobile-modal-dialog-large .modal-footer {
+            padding: 4px;
+        }
+
+        .modal-dialog-small {
+            left: 20%;
+            margin: 0 10%;
+            position: fixed;
+            top: 10%;
+            width: 40%;
+        }
+
+        .mobile-modal-dialog-small .modal-header {
+            padding: 4px 2%;
+        }
+
+        .mobile-modal-dialog-small .modal-header h4 {
+            color: blue;
+            margin: 4px 0;
+        }
+
+        .modal-dialog-small textarea {
+            height: 340px;
+            margin: 10px;
+            width: 80%;
+        }
+
+        .mobile-modal-dialog-small {
+            left: 5%;
+            margin: 0 10%;
+            position: fixed;
+            top: 10%;
+            width: 70%;
+        }
+
+        .mobile-modal-dialog-small textarea {
+            height: 340px;
+            margin: 10px;
+            width: 80%;
+        }
+
+        .mobile-modal-dialog-small .modal-footer {
+            padding: 4px;
+        }
+
+        .modal-body {
+            background-color: aliceblue;
+        }
+
+        .modal-body .form-control {
+            margin: 0px 5% 10px;
+            width: 80%;
+        }
+
+        .modal-footer label {
+            float: left;
+            margin: 9px 5px 0px 0px;
+        }
+
+        .modal-footer input {
+            float: left;
+            margin-top: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+    <div ng-view></div>
+</div>
+
+
+<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="resources/js/app.js"></script>
+<script src="resources/js/services.js"></script>
+<script src="resources/js/controllers/creationController.js"></script>
+<script src="resources/js/filters.js"></script>
+<script src="resources/js/directives.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<div class="mobile-header-container">
+    <div class="mobile-login-signup navbar-form">
+        <div class="mobile-heading">Creations</div>
+        <button type="button" class="btn btn-default pull-right" ng-click="loginButton()">Log In</button>
+        <button type="button" class="btn btn-default pull-right" ng-click="signupButton()">Sign Up</button>
+    </div>
+    <div class="mobile-welcome-container">
+        <p class="logged-in-user navbar-form pull-right">
+            {{username}}
+            <span ng-show="username">{{Username}}</span>
+        </p>
+        <div class="btn-group settings dropdown">
+            <button type="button" class="btn btn-default dropdown-toggle" id="dropdownMenu3" data-toggle="dropdown">
+                Settings <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="" ng-click="contactUsLink()">Contact Us</a>
+                    <a role="menuitem" tabindex="-1" href="" ng-click="changeEmailLink()">Change Email</a>
+                    <a role="menuitem" tabindex="-1" href="" ng-click="changePasswordLink()">Change Password</a>
+                    <a role="menuitem" tabindex="-1" href="" ng-click="logout()">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mobile-creations-nav-bar">
+        <button class="btn btn-titles btn-success" ng-if="isLoggedIn" ng-click="myCreations(username)">MINE</button>
+        <button class="btn btn-titles btn-primary" ng-click="allCreations()">ALL</button>
+
+        <div class="btn-group creators dropdown" ng-show="creators.length">
+            <button type="button" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                CHOOSE<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation" ng-repeat="creator in creators">
+                    <a role="menuitem" tabindex="-1" href="" ng-click="myCreations(creator)">{{creator}}</a>
+                </li>
+            </ul>
+        </div>
+        <button type="button"  class="btn btn-success" ng-if="isLoggedIn" ng-click="saveRequest()">ADD</button>
+    </div>
+</div>
+
+<div class="mobile-creation-controller" ng-show="creations.length > 0">
+    <div class="creations">
+        <br>
+        <div class="creation-details"ng-repeat="creation in creations">
+            <p class="title">{{creation.title}}</p>
+            <p class="author">by {{creation.username}}</p>
+            <textarea class="description" readonly on-finish-render>{{creation.poem}}</textarea>
+            <div class="creation-details-footer" ng-switch on="creation.username == username">
+                <div class="read-more-link">
+                    <a ng-switch-when=false href="javascript:void(0)" ng-click="readMoreRequest(creation.title,creation.poem,creation.username)">Read more...</a>
+                    <a ng-switch-when=true href="javascript:void(0)" ng-click="updateRequest(creation.title,creation.poem,creation.isPrivate)">Read more and update...</a>
+                </div>
+                <button type="button" ng-switch-when=true class="btn btn-danger btn-small pull-right" ng-click="deleteRequest(creation.title)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info" ng-show="creations.length == 0">
+    No creations found.
+</div>
+<div class="modal fade hide mobile-modal-dialog-large" id="contactUsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Contact Us</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" ng-model="name" autocorrect="off" autocapitalize="off" class="form-control  username-textfield" placeholder="name">
+                    <input type="email" ng-model="email" autocorrect="off" autocapitalize="off" class="form-control" placeholder="email">
+                    <input type="text" ng-model="subject" autocorrect="off" autocapitalize="off" class="form-control" placeholder="subject">
+                    <textarea ng-model="comment" autocorrect="off" autocapitalize="off" class="form-control contact-us" placeholder="comment/question ..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary enter-button" ng-click="contactUs()">Send</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade hide mobile-modal-dialog-small" id="signupModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" ng-model="username" autocorrect="off" autocapitalize="on" class="form-control username-textfield" placeholder="username">
+                    <input type="email" ng-model="email" autocorrect="off" autocapitalize="off" class="form-control" placeholder="email">
+                    <input type="password" ng-model="password" autocorrect="off" autocapitalize="off" class="form-control" placeholder="password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click="signup()">Enter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade hide mobile-modal-dialog-small" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Log In</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="email" autocorrect="off" autocapitalize="off" ng-model="email" class="form-control" placeholder="email">
+                    <input type="password" autocorrect="off" autocapitalize="off" ng-model="password" class="form-control" placeholder="password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="login()">Enter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade hide mobile-modal-dialog-small" id="changeEmailModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Change Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Enter your old email and your new email twice:</label>
+                    <input type="email" ng-model="oldEmail" autocorrect="off" autocapitalize="off" class="form-control" placeholder="old email">
+                    <input type="email" ng-model="newEmail1" autocorrect="off" autocapitalize="off" class="form-control" placeholder="new email">
+                    <input type="email" ng-model="newEmail2" autocorrect="off" autocapitalize="off" class="form-control" placeholder="new email">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="changeEmail()">Enter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade hide mobile-modal-dialog-small" id="changePasswordModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Enter your old password and your new password twice:</label>
+                    <input type="password" ng-model="oldPassword" autocorrect="off" autocapitalize="off" class="form-control" placeholder="old password">
+                    <input type="password" ng-model="newPassword1" autocorrect="off" autocapitalize="off" class="form-control" placeholder="new password">
+                    <input type="password" ng-model="newPassword2" autocorrect="off" autocapitalize="off" class="form-control" placeholder="new password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="changePassword()">Enter</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade hide mobile-modal-dialog-large" id="readMoreModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{readTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="10" class="readPoem" ng-model="readPoem"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade hide mobile-modal-dialog-large" id="newCreationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New Creation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" class="saveTitle" ng-model="saveTitle" placeholder="Creation title">
+                    <textarea class="form-control" rows="10" class="savePoem" ng-model="savePoem" placeholder="Creation... "></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <label>Private:</label>
+                <input type="checkbox" ng-model="savePrivate" class="form-control">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="saveCreation()">Save creation</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade hide mobile-modal-dialog-large" id="updateCreationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{updateTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="10" id="updatePoem" ng-model="updatePoem" placeholder="Creation... "></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <label>Private:</label>
+                <input type="checkbox" ng-model="updatePrivate" class="form-control">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success has-spinner" ng-click="updateCreation()">
+                    <span class="spinner"><i class="icon-spin icon-refresh"></i></span>>
+                    Update creation
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade hide mobile-modal-dialog-small" id="deleteCreationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <p>Are you sure you would like to delete this creation?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" ng-click="deleteCreation()">Yes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade hide mobile-modal-dialog-small" id="errorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Error Message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <p>{{errorMessage}}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
